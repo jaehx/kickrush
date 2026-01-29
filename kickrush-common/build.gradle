@@ -1,0 +1,7 @@
+dependencies {
+    // common 모듈만의 특수한 라이브러리가 생기면 여기에 추가하세요.
+}
+
+// Spring Boot 플러그인이 루트에서 적용되었다면 필수 설정
+bootJar { enabled = false } // 실행 가능한 jar를 만들지 않음
+jar { enabled = true }      // 일반 라이브러리 jar로 빌드함

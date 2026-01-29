@@ -1,0 +1,4 @@
+rootProject.name = 'KickRush'
+include 'kickrush-api'
+include 'kickrush-core'
+include 'kickrush-common'

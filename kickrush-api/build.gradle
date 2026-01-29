@@ -1,0 +1,10 @@
+dependencies {
+    implementation project(':kickrush-core')   // core를 끌어오면 common도 같이 따라옵니다.
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+}
+
+// api는 실제 실행 파일이 되어야 하므로 bootJar를 활성화합니다.
+bootJar { enabled = true }
+jar { enabled = false }
