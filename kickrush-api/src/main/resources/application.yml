@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: kickrush-api
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+server:
+  port: 8080
+
+# 공통 로깅 설정
+logging:
+  level:
+    root: INFO
+    com.kanga: DEBUG
