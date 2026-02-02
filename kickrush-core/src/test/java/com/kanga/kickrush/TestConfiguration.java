@@ -1,0 +1,7 @@
+package com.kanga.kickrush;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TestConfiguration {
+}
