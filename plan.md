@@ -10,7 +10,7 @@
 ### 1.2 발매(Release) 도메인
 - [x] `Release` 엔티티 생성 테스트
 - [x] `ReleaseRepository` 기본 CRUD 테스트
-- [ ] `ReleaseService` 발매 상태 조회 테스트
+- [x] `ReleaseService` 발매 상태 조회 테스트
 
 ---
 
