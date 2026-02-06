@@ -25,13 +25,15 @@
 
 ## 🏗️ 아키텍처
 
-### 멀티 모듈 구조
+### 모노레포 구조
 
 ```
 KickRush/
-├── kickrush-api        # REST API 계층 (Controller, Security)
-├── kickrush-core       # 비즈니스 로직 (Domain, Service, Repository)
-└── kickrush-common     # 공통 유틸리티 및 예외 처리
+├── backend/            # Spring Boot 멀티 모듈
+│   ├── kickrush-api    # REST API 계층 (Controller, Security)
+│   ├── kickrush-core   # 비즈니스 로직 (Domain, Service, Repository)
+│   └── kickrush-common # 공통 유틸리티 및 예외 처리
+└── frontend/           # 프론트엔드 앱 (예정)
 ```
 
 | 모듈 | 역할 | 주요 의존성 |
@@ -88,7 +90,7 @@ KickRush/
 - Java 17+
 - Gradle 8.x
 
-### 빌드 및 실행
+### 빌드 및 실행 (백엔드)
 
 ```bash
 # 프로젝트 클론
@@ -96,13 +98,26 @@ git clone https://github.com/your-username/KickRush.git
 cd KickRush
 
 # 빌드
-./gradlew build
+./backend/gradlew build
 
 # 테스트 실행
-./gradlew test
+./backend/gradlew test
 
 # 애플리케이션 실행
-./gradlew :kickrush-api:bootRun
+./backend/gradlew :kickrush-api:bootRun
+```
+
+---
+### 실행 (프론트엔드)
+
+```bash
+cd frontend
+
+# 패키지 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
 ```
 
 ---
@@ -149,10 +164,10 @@ cd KickRush
 
 ---
 
-## 📁 프로젝트 구조
+## 📁 프로젝트 구조 (백엔드)
 
 ```
-kickrush-core/
+backend/kickrush-core/
 └── src/
     ├── main/java/com/kanga/kickrush/
     │   └── domain/
@@ -177,25 +192,3 @@ kickrush-core/
 ```
 
 ---
-
-## 🤝 Contributing
-
-기여를 환영합니다! Pull Request를 보내기 전에 다음을 확인해주세요:
-
-1. 모든 테스트가 통과하는지 확인
-2. TDD 사이클을 준수
-3. 구조적 변경과 행동 변경을 별도 커밋으로 분리
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-
-Made with ❤️ by **Kanga**
-
-</div>
