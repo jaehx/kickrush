@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
 import { apiClient } from "@/lib/api";
 import { formatCurrency, formatDateTime } from "@/lib/format";
@@ -15,12 +14,16 @@ interface OrderCompletePageProps {
 export default function OrderCompletePage({ params }: OrderCompletePageProps) {
   const [order, setOrder] = useState<OrderDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {
       try {
         const data = await apiClient.fetch<OrderDetail>(`/my/orders/${params.id}`);
         setOrder(data);
+        setErrorMessage(null);
+      } catch {
+        setErrorMessage("주문 정보를 불러오는 데 실패했습니다.");
       } finally {
         setIsLoading(false);
       }
@@ -43,7 +46,7 @@ export default function OrderCompletePage({ params }: OrderCompletePageProps) {
         <div className="panel-header">
           <h1>Order complete</h1>
         </div>
-        <p className="meta">주문 정보를 찾을 수 없습니다.</p>
+        <p className="meta">{errorMessage ?? "주문 정보를 찾을 수 없습니다."}</p>
         <Link href="/my/orders" className="link-muted">
           주문 목록으로 이동
         </Link>
@@ -93,14 +96,14 @@ export default function OrderCompletePage({ params }: OrderCompletePageProps) {
           <h2>Next steps</h2>
         </div>
         <div className="form-grid">
-          <Link href={`/my/orders/${order.id}`}>
-            <Button size="lg">주문 상세 보기</Button>
+          <Link href={`/my/orders/${order.id}`} className="btn btn-lg btn-primary">
+            주문 상세 보기
           </Link>
           <Link href="/my/orders" className="link-muted">
             내 주문 목록으로 이동
           </Link>
-          <Link href="/">
-            <Button variant="ghost">다른 발매 보기</Button>
+          <Link href="/" className="btn btn-ghost">
+            다른 발매 보기
           </Link>
         </div>
       </section>
