@@ -45,6 +45,65 @@ class ReleaseSizeServiceTest {
     }
 
     @Test
+    @DisplayName("ID로 재고 수량을 조회할 수 있다")
+    void shouldGetStockById() {
+        // given
+        Long releaseSizeId = 1L;
+        ReleaseSize releaseSize = ReleaseSize.builder()
+                .releaseId(1L)
+                .size(260)
+                .stock(15)
+                .price(250000)
+                .build();
+        given(releaseSizeRepository.findById(releaseSizeId)).willReturn(Optional.of(releaseSize));
+
+        // when
+        int stock = releaseSizeService.getStock(releaseSizeId);
+
+        // then
+        assertThat(stock).isEqualTo(15);
+    }
+
+    @Test
+    @DisplayName("재고를 차감할 수 있다")
+    void shouldDecreaseStock() {
+        // given
+        Long releaseSizeId = 1L;
+        ReleaseSize releaseSize = ReleaseSize.builder()
+                .releaseId(1L)
+                .size(255)
+                .stock(10)
+                .price(240000)
+                .build();
+        given(releaseSizeRepository.findById(releaseSizeId)).willReturn(Optional.of(releaseSize));
+
+        // when
+        ReleaseSize updated = releaseSizeService.decreaseStock(releaseSizeId, 3);
+
+        // then
+        assertThat(updated.getStock()).isEqualTo(7);
+    }
+
+    @Test
+    @DisplayName("재고가 부족하면 예외가 발생한다")
+    void shouldThrowWhenStockInsufficient() {
+        // given
+        Long releaseSizeId = 1L;
+        ReleaseSize releaseSize = ReleaseSize.builder()
+                .releaseId(1L)
+                .size(250)
+                .stock(2)
+                .price(230000)
+                .build();
+        given(releaseSizeRepository.findById(releaseSizeId)).willReturn(Optional.of(releaseSize));
+
+        // when & then
+        assertThatThrownBy(() -> releaseSizeService.decreaseStock(releaseSizeId, 5))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("재고가 부족합니다");
+    }
+
+    @Test
     @DisplayName("존재하지 않는 ID로 조회 시 예외가 발생한다")
     void shouldThrowExceptionWhenReleaseSizeNotFound() {
         // given

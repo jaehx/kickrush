@@ -21,4 +21,16 @@ public class ReleaseSizeService {
     public List<ReleaseSize> findAll() {
         return releaseSizeRepository.findAll();
     }
+
+    public int getStock(Long id) {
+        return findById(id).getStock();
+    }
+
+    @Transactional
+    public ReleaseSize decreaseStock(Long id, int quantity) {
+        ReleaseSize releaseSize = findById(id);
+        releaseSize.decreaseStock(quantity);
+        return releaseSize;
+    }
+
 }

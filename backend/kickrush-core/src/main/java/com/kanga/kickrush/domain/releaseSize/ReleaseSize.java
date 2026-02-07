@@ -44,6 +44,16 @@ public class ReleaseSize {
         this.price = price;
     }
 
+    public void decreaseStock(int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("차감 수량은 1개 이상이어야 합니다. quantity=" + quantity);
+        }
+        if (stock < quantity) {
+            throw new IllegalArgumentException("재고가 부족합니다. stock=" + stock + ", request=" + quantity);
+        }
+        this.stock -= quantity;
+    }
+
     private static void validateSize(int size) {
         if (size < MIN_SIZE || size > MAX_SIZE || ((size - MIN_SIZE) % SIZE_STEP != 0)) {
             throw new IllegalArgumentException("유효하지 않은 사이즈입니다. size=" + size);
