@@ -15,12 +15,16 @@ interface OrderDetailPageProps {
 export default function OrderDetailPage({ params }: OrderDetailPageProps) {
   const [order, setOrder] = useState<OrderDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {
       try {
         const data = await apiClient.fetch<OrderDetail>(`/my/orders/${params.id}`);
         setOrder(data);
+        setErrorMessage(null);
+      } catch {
+        setErrorMessage("주문 정보를 불러오는 데 실패했습니다.");
       } finally {
         setIsLoading(false);
       }
@@ -47,7 +51,7 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
         <div className="panel-header">
           <h1>Order not found</h1>
         </div>
-        <p className="meta">주문 정보를 찾을 수 없습니다.</p>
+        <p className="meta">{errorMessage ?? "주문 정보를 찾을 수 없습니다."}</p>
         <Link href="/my/orders" className="link-muted">
           주문 목록으로 돌아가기
         </Link>
