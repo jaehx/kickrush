@@ -23,6 +23,7 @@ class ReleaseRepositoryTest {
         Release release = Release.builder()
                 .shoeId(1L)
                 .releaseDateTime(LocalDateTime.of(2026, 2, 10, 10, 0))
+                .endDateTime(LocalDateTime.of(2026, 2, 10, 10, 30))
                 .totalStock(100)
                 .build();
 
@@ -41,6 +42,7 @@ class ReleaseRepositoryTest {
         Release release = Release.builder()
                 .shoeId(1L)
                 .releaseDateTime(LocalDateTime.of(2026, 2, 10, 10, 0))
+                .endDateTime(LocalDateTime.of(2026, 2, 10, 10, 30))
                 .totalStock(100)
                 .build();
         Release savedRelease = releaseRepository.save(release);
@@ -60,6 +62,7 @@ class ReleaseRepositoryTest {
         Release release = Release.builder()
                 .shoeId(1L)
                 .releaseDateTime(LocalDateTime.of(2026, 2, 10, 10, 0))
+                .endDateTime(LocalDateTime.of(2026, 2, 10, 10, 30))
                 .totalStock(100)
                 .build();
         Release savedRelease = releaseRepository.save(release);

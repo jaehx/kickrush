@@ -15,12 +15,14 @@ class ReleaseTest {
         // given
         Long shoeId = 1L;
         LocalDateTime releaseDateTime = LocalDateTime.of(2026, 2, 10, 10, 0);
+        LocalDateTime endDateTime = LocalDateTime.of(2026, 2, 10, 10, 30);
         int totalStock = 100;
 
         // when
         Release release = Release.builder()
                 .shoeId(shoeId)
                 .releaseDateTime(releaseDateTime)
+                .endDateTime(endDateTime)
                 .totalStock(totalStock)
                 .build();
 
@@ -28,6 +30,7 @@ class ReleaseTest {
         assertThat(release).isNotNull();
         assertThat(release.getShoeId()).isEqualTo(shoeId);
         assertThat(release.getReleaseDateTime()).isEqualTo(releaseDateTime);
+        assertThat(release.getEndDateTime()).isEqualTo(endDateTime);
         assertThat(release.getTotalStock()).isEqualTo(totalStock);
     }
 }

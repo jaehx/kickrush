@@ -24,12 +24,19 @@ public class Release {
     private LocalDateTime releaseDateTime;
 
     @Column(nullable = false)
+    private LocalDateTime endDateTime;
+
+    @Column(nullable = false)
     private int totalStock;
 
     @Builder
-    public Release(Long shoeId, LocalDateTime releaseDateTime, int totalStock) {
+    public Release(Long shoeId, LocalDateTime releaseDateTime, LocalDateTime endDateTime, int totalStock) {
+        if (endDateTime.isBefore(releaseDateTime)) {
+            throw new IllegalArgumentException("종료 시간은 시작 시간 이후여야 합니다.");
+        }
         this.shoeId = shoeId;
         this.releaseDateTime = releaseDateTime;
+        this.endDateTime = endDateTime;
         this.totalStock = totalStock;
     }
 }

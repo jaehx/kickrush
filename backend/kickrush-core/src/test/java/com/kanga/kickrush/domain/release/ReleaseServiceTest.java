@@ -31,6 +31,7 @@ class ReleaseServiceTest {
         Release release = Release.builder()
                 .shoeId(1L)
                 .releaseDateTime(LocalDateTime.of(2026, 2, 10, 10, 0))
+                .endDateTime(LocalDateTime.of(2026, 2, 10, 10, 30))
                 .totalStock(100)
                 .build();
         given(releaseRepository.findById(releaseId)).willReturn(Optional.of(release));
