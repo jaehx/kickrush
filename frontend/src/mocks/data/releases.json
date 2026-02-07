@@ -1,0 +1,55 @@
+{
+  "releases": [
+    {
+      "id": 1,
+      "shoeId": 1,
+      "releaseDateTime": "2026-02-10T11:00:00",
+      "endDateTime": "2026-02-10T11:30:00",
+      "status": "UPCOMING",
+      "totalStock": 100,
+      "sizes": [
+        { "id": 1, "size": 250, "stock": 10, "price": 209000 },
+        { "id": 2, "size": 255, "stock": 8, "price": 209000 },
+        { "id": 3, "size": 260, "stock": 12, "price": 209000 },
+        { "id": 4, "size": 265, "stock": 15, "price": 209000 },
+        { "id": 5, "size": 270, "stock": 20, "price": 209000 },
+        { "id": 6, "size": 275, "stock": 15, "price": 209000 },
+        { "id": 7, "size": 280, "stock": 10, "price": 209000 },
+        { "id": 8, "size": 285, "stock": 5, "price": 209000 },
+        { "id": 9, "size": 290, "stock": 5, "price": 209000 }
+      ]
+    },
+    {
+      "id": 2,
+      "shoeId": 2,
+      "releaseDateTime": "2026-02-08T10:00:00",
+      "endDateTime": "2026-02-08T10:30:00",
+      "status": "ONGOING",
+      "totalStock": 50,
+      "sizes": [
+        { "id": 10, "size": 250, "stock": 5, "price": 139000 },
+        { "id": 11, "size": 255, "stock": 3, "price": 139000 },
+        { "id": 12, "size": 260, "stock": 8, "price": 139000 },
+        { "id": 13, "size": 265, "stock": 10, "price": 139000 },
+        { "id": 14, "size": 270, "stock": 12, "price": 139000 },
+        { "id": 15, "size": 275, "stock": 7, "price": 139000 },
+        { "id": 16, "size": 280, "stock": 5, "price": 139000 }
+      ]
+    },
+    {
+      "id": 3,
+      "shoeId": 3,
+      "releaseDateTime": "2026-02-05T11:00:00",
+      "endDateTime": "2026-02-05T11:30:00",
+      "status": "ENDED",
+      "totalStock": 0,
+      "sizes": [
+        { "id": 17, "size": 250, "stock": 0, "price": 139000 },
+        { "id": 18, "size": 255, "stock": 0, "price": 139000 },
+        { "id": 19, "size": 260, "stock": 0, "price": 139000 },
+        { "id": 20, "size": 265, "stock": 0, "price": 139000 },
+        { "id": 21, "size": 270, "stock": 0, "price": 139000 }
+      ]
+    }
+  ]
+}

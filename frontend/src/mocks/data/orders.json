@@ -1,0 +1,38 @@
+{
+  "orders": [
+    {
+      "id": 1001,
+      "memberId": 1,
+      "releaseSizeId": 5,
+      "shoe": {
+        "id": 1,
+        "name": "Air Jordan 1 Retro High OG 'Chicago Lost and Found'",
+        "brand": "Nike",
+        "modelNumber": "DZ5485-612",
+        "imageUrl": "/images/shoes/aj1-chicago.jpg"
+      },
+      "size": 270,
+      "price": 209000,
+      "status": "COMPLETED",
+      "orderedAt": "2026-02-10T11:00:05",
+      "cancelledAt": null
+    },
+    {
+      "id": 1002,
+      "memberId": 1,
+      "releaseSizeId": 14,
+      "shoe": {
+        "id": 2,
+        "name": "Nike Dunk Low 'Panda'",
+        "brand": "Nike",
+        "modelNumber": "DD1391-100",
+        "imageUrl": "/images/shoes/dunk-panda.jpg"
+      },
+      "size": 270,
+      "price": 139000,
+      "status": "CANCELLED",
+      "orderedAt": "2026-02-08T10:00:10",
+      "cancelledAt": "2026-02-08T10:05:00"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "members": [
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "password": "$2a$10$hashedpassword",
+      "name": "홍길동",
+      "role": "USER"
+    },
+    {
+      "id": 2,
+      "email": "admin@example.com",
+      "password": "$2a$10$hashedpassword",
+      "name": "관리자",
+      "role": "ADMIN"
+    }
+  ]
+}

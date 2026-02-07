@@ -1,50 +1,56 @@
-export default function Home() {
+import { ReleaseCard } from "@/components/ReleaseCard";
+import { ShoeCard } from "@/components/ShoeCard";
+import { Button } from "@/components/ui/Button";
+import { fetchApi } from "@/lib/api";
+import type { Page, Release, Shoe } from "@/types";
+
+export default async function Home() {
+  const releases = await fetchApi<Page<Release>>("/releases");
+  const shoes = await fetchApi<Page<Shoe>>("/shoes");
+
   return (
-    <main>
-      <span className="tag">High-Traffic Drop System</span>
-      <h1>KickRush Frontend</h1>
-      <p>
-        이 화면은 Spring Boot 기반 백엔드와 분리된 Next.js 프론트엔드의 시작점입니다.
-        향후 실시간 재고, 대기열, 주문 흐름까지 확장해 고부하 상황을 시뮬레이션할 예정입니다.
-      </p>
-
-      <section className="section">
-        <h2>현재 구성</h2>
-        <div className="grid">
-          <div className="card">
-            <strong>Frontend</strong>
-            <p>Next.js App Router, TypeScript</p>
+    <div>
+      <section className="hero">
+        <div className="hero-card">
+          <span className="meta">High-traffic release simulator</span>
+          <h1>KickRush Drop Control Room</h1>
+          <p>
+            발매 일정, 사이즈별 재고, 주문 흐름을 한 번에 점검하는 드롭 허브입니다.
+            Mock 데이터로 병렬 개발을 진행하며, 백엔드가 완성되면 즉시 실 API로 전환합니다.
+          </p>
+          <div className="section-title">
+            <Button size="lg">Explore Releases</Button>
           </div>
-          <div className="card">
-            <strong>Backend</strong>
-            <p>Spring Boot 멀티 모듈 (kickrush-api/core/common)</p>
-          </div>
-          <div className="card">
-            <strong>로드 테스트</strong>
-            <p>가상 유저 시뮬레이션 예정 (k6/Locust 후보)</p>
-          </div>
+        </div>
+        <div className="hero-card">
+          <h2>Parallel Dev Checklist</h2>
+          <ul>
+            <li>API 스펙: docs/api-spec.md 기준</li>
+            <li>타입 동기화: docs/types.md → src/types</li>
+            <li>Mock 모드: NEXT_PUBLIC_USE_MOCK=true</li>
+          </ul>
         </div>
       </section>
 
-      <section className="section">
-        <h2>다음 단계</h2>
-        <div className="grid">
-          <div className="card">
-            <strong>API 연결</strong>
-            <p>백엔드 엔드포인트와 연동해 실제 드롭 흐름을 구현합니다.</p>
-          </div>
-          <div className="card">
-            <strong>성능 계측</strong>
-            <p>RPS, 응답 시간, 오류율을 대시보드로 정리합니다.</p>
-          </div>
-          <div className="card">
-            <strong>시각화</strong>
-            <p>대기열과 재고 변화를 시각적으로 표현합니다.</p>
-          </div>
-        </div>
+      <div className="section-title">
+        <h2>Upcoming Releases</h2>
+        <span className="meta">{releases.totalElements} drops tracked</span>
+      </div>
+      <section className="grid">
+        {releases.content.map((release) => (
+          <ReleaseCard key={release.id} release={release} />
+        ))}
       </section>
 
-      <div className="footer">KickRush v0.1 — frontend scaffolding</div>
-    </main>
+      <div className="section-title">
+        <h2>Featured Shoes</h2>
+        <span className="meta">Top silhouettes in the lineup</span>
+      </div>
+      <section className="grid">
+        {shoes.content.map((shoe) => (
+          <ShoeCard key={shoe.id} shoe={shoe} />
+        ))}
+      </section>
+    </div>
   );
 }

@@ -1,0 +1,49 @@
+{
+  "shoes": [
+    {
+      "id": 1,
+      "name": "Air Jordan 1 Retro High OG 'Chicago Lost and Found'",
+      "brand": "Nike",
+      "modelNumber": "DZ5485-612",
+      "price": 209000,
+      "description": "1985년 오리지널 시카고 컬러웨이를 재현한 에어 조던 1. 빈티지 가공된 솔과 크랙 페인트 효과가 특징.",
+      "imageUrl": "/images/shoes/aj1-chicago.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Nike Dunk Low 'Panda'",
+      "brand": "Nike",
+      "modelNumber": "DD1391-100",
+      "price": 139000,
+      "description": "클래식한 블랙 앤 화이트 컬러웨이의 덩크 로우. 깔끔한 디자인으로 어떤 스타일에도 매치 가능.",
+      "imageUrl": "/images/shoes/dunk-panda.jpg"
+    },
+    {
+      "id": 3,
+      "name": "New Balance 550 'White Green'",
+      "brand": "New Balance",
+      "modelNumber": "BB550WT1",
+      "price": 139000,
+      "description": "90년대 농구화에서 영감받은 레트로 디자인. 화이트 베이스에 그린 포인트.",
+      "imageUrl": "/images/shoes/nb550-green.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Adidas Samba OG 'White Black'",
+      "brand": "Adidas",
+      "modelNumber": "B75806",
+      "price": 129000,
+      "description": "1950년대 인도어 축구화에서 시작된 아디다스 삼바. 클래식한 실루엣과 T-toe 디자인.",
+      "imageUrl": "/images/shoes/samba-og.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Nike Air Force 1 '07 Low 'White'",
+      "brand": "Nike",
+      "modelNumber": "CW2288-111",
+      "price": 139000,
+      "description": "1982년 처음 출시된 에어포스 1의 클래식 화이트 버전. 세련된 디자인과 편안한 착화감.",
+      "imageUrl": "/images/shoes/af1-white.jpg"
+    }
+  ]
+}
