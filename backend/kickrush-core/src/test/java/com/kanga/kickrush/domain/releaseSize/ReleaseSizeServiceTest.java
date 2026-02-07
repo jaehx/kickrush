@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import jakarta.persistence.PessimisticLockException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -101,6 +102,20 @@ class ReleaseSizeServiceTest {
         assertThatThrownBy(() -> releaseSizeService.decreaseStock(releaseSizeId, 5))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("재고가 부족합니다");
+    }
+
+    @Test
+    @DisplayName("락 타임아웃 발생 시 LOCK_TIMEOUT 예외가 발생한다")
+    void shouldThrowLockTimeout() {
+        // given
+        Long releaseSizeId = 1L;
+        given(releaseSizeRepository.findByIdForUpdate(releaseSizeId))
+                .willThrow(new PessimisticLockException("lock timeout"));
+
+        // when & then
+        assertThatThrownBy(() -> releaseSizeService.decreaseStockWithLock(releaseSizeId, 1))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("LOCK_TIMEOUT");
     }
 
     @Test
