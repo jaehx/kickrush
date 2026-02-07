@@ -239,7 +239,9 @@ img {
   background: var(--accent);
   color: #fff;
   font-weight: 600;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .link-button:hover {
@@ -472,7 +474,12 @@ img {
 .skeleton {
   height: 16px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(22, 19, 17, 0.08), rgba(22, 19, 17, 0.16), rgba(22, 19, 17, 0.08));
+  background: linear-gradient(
+    90deg,
+    rgba(22, 19, 17, 0.08),
+    rgba(22, 19, 17, 0.16),
+    rgba(22, 19, 17, 0.08)
+  );
   background-size: 200% 100%;
   animation: shimmer 1.4s ease infinite;
 }

@@ -55,9 +55,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
       <main className="app-main">{children}</main>
-      <footer className="app-footer">
-        KickRush Drop Lab · high-traffic release simulation
-      </footer>
+      <footer className="app-footer">KickRush Drop Lab · high-traffic release simulation</footer>
     </div>
   );
 }

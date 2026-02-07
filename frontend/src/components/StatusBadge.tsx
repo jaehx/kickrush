@@ -8,9 +8,5 @@ const labels: Record<ReleaseStatus, string> = {
 };
 
 export function StatusBadge({ status }: { status: ReleaseStatus }) {
-  return (
-    <span className={clsx("status", `status-${status.toLowerCase()}`)}>
-      {labels[status]}
-    </span>
-  );
+  return <span className={clsx("status", `status-${status.toLowerCase()}`)}>{labels[status]}</span>;
 }

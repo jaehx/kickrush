@@ -15,8 +15,8 @@ export default async function Home() {
           <span className="meta">High-traffic release simulator</span>
           <h1>KickRush Drop Control Room</h1>
           <p>
-            발매 일정, 사이즈별 재고, 주문 흐름을 한 번에 점검하는 드롭 허브입니다.
-            Mock 데이터로 병렬 개발을 진행하며, 백엔드가 완성되면 즉시 실 API로 전환합니다.
+            발매 일정, 사이즈별 재고, 주문 흐름을 한 번에 점검하는 드롭 허브입니다. Mock 데이터로
+            병렬 개발을 진행하며, 백엔드가 완성되면 즉시 실 API로 전환합니다.
           </p>
           <div className="section-title">
             <Button size="lg">Explore Releases</Button>

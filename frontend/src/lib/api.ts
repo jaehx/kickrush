@@ -150,12 +150,8 @@ async function mockFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
   if (method === "GET" && path === "/shoes") {
     return (await mockApi.getShoes({
       brand: url.searchParams.get("brand") ?? undefined,
-      page: url.searchParams.get("page")
-        ? Number(url.searchParams.get("page"))
-        : undefined,
-      size: url.searchParams.get("size")
-        ? Number(url.searchParams.get("size"))
-        : undefined
+      page: url.searchParams.get("page") ? Number(url.searchParams.get("page")) : undefined,
+      size: url.searchParams.get("size") ? Number(url.searchParams.get("size")) : undefined
     })) as T;
   }
 
@@ -171,12 +167,8 @@ async function mockFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
         | "ONGOING"
         | "ENDED"
         | undefined,
-      page: url.searchParams.get("page")
-        ? Number(url.searchParams.get("page"))
-        : undefined,
-      size: url.searchParams.get("size")
-        ? Number(url.searchParams.get("size"))
-        : undefined
+      page: url.searchParams.get("page") ? Number(url.searchParams.get("page")) : undefined,
+      size: url.searchParams.get("size") ? Number(url.searchParams.get("size")) : undefined
     })) as T;
   }
 

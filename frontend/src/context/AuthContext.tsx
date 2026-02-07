@@ -35,18 +35,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     void checkAuth();
   }, [checkAuth]);
 
-  const login = useCallback(async (email: string, password: string) => {
-    await apiClient.login(email, password);
-    await checkAuth();
-  }, [checkAuth]);
+  const login = useCallback(
+    async (email: string, password: string) => {
+      await apiClient.login(email, password);
+      await checkAuth();
+    },
+    [checkAuth]
+  );
 
-  const register = useCallback(async (payload: RegisterRequest) => {
-    await apiClient.fetch("/members/register", {
-      method: "POST",
-      body: JSON.stringify(payload)
-    });
-    await login(payload.email, payload.password);
-  }, [login]);
+  const register = useCallback(
+    async (payload: RegisterRequest) => {
+      await apiClient.fetch("/members/register", {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+      await login(payload.email, payload.password);
+    },
+    [login]
+  );
 
   const logout = useCallback(() => {
     apiClient.logout();
