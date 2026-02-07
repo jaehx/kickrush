@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
 import { apiClient } from "@/lib/api";
 import { formatCurrency, formatDateTime } from "@/lib/format";
@@ -31,7 +32,7 @@ export default function OrderCompletePage({ params }: OrderCompletePageProps) {
   if (isLoading) {
     return (
       <section className="panel">
-        <Spinner label="주문 내역을 불러오는 중" />
+        <Spinner label="주문 완료 정보를 불러오는 중" />
       </section>
     );
   }
@@ -39,47 +40,70 @@ export default function OrderCompletePage({ params }: OrderCompletePageProps) {
   if (!order) {
     return (
       <section className="panel">
-        <p className="meta">주문 정보를 불러오지 못했습니다.</p>
+        <div className="panel-header">
+          <h1>Order complete</h1>
+        </div>
+        <p className="meta">주문 정보를 찾을 수 없습니다.</p>
+        <Link href="/my/orders" className="link-muted">
+          주문 목록으로 이동
+        </Link>
       </section>
     );
   }
 
   return (
-    <section className="panel" style={{ maxWidth: 680, margin: "0 auto" }}>
-      <div className="panel-header">
-        <h1>Order confirmed</h1>
-      </div>
-      <div className="info-banner">
-        <div>
-          <p className="meta">Order ID</p>
-          <strong>#{order.id}</strong>
+    <div className="form-grid">
+      <section className="panel">
+        <div className="panel-header">
+          <div>
+            <p className="meta">Order completed</p>
+            <h1>#{order.id}</h1>
+          </div>
+          <div className="info-banner">
+            <span className="meta-label">Status</span>
+            <strong>{order.status}</strong>
+          </div>
         </div>
-        <div>
-          <p className="meta">Status</p>
-          <strong>{order.status}</strong>
+        <div className="info-banner">
+          <div>
+            <span className="meta-label">Shoe</span>
+            <strong>{order.shoe.name}</strong>
+            <p className="meta">{order.shoe.brand}</p>
+          </div>
+          <div>
+            <span className="meta-label">Size</span>
+            <strong>{order.size}</strong>
+          </div>
+          <div>
+            <span className="meta-label">Price</span>
+            <strong>{formatCurrency(order.price)}</strong>
+          </div>
+          <div>
+            <span className="meta-label">Ordered at</span>
+            <strong>{formatDateTime(order.orderedAt)}</strong>
+          </div>
         </div>
-      </div>
-      <div className="form-grid" style={{ marginTop: 20 }}>
-        <div>
-          <p className="meta">Shoe</p>
-          <strong>{order.shoe.name}</strong>
+        <p className="meta" style={{ marginTop: 16 }}>
+          주문 확인 메일이 등록된 이메일로 전송되었습니다.
+        </p>
+      </section>
+
+      <section className="panel">
+        <div className="panel-header">
+          <h2>Next steps</h2>
         </div>
-        <div>
-          <p className="meta">Size</p>
-          <strong>{order.size}</strong>
+        <div className="form-grid">
+          <Link href={`/my/orders/${order.id}`}>
+            <Button size="lg">주문 상세 보기</Button>
+          </Link>
+          <Link href="/my/orders" className="link-muted">
+            내 주문 목록으로 이동
+          </Link>
+          <Link href="/">
+            <Button variant="ghost">다른 발매 보기</Button>
+          </Link>
         </div>
-        <div>
-          <p className="meta">Price</p>
-          <strong>{formatCurrency(order.price)}</strong>
-        </div>
-        <div>
-          <p className="meta">Ordered at</p>
-          <strong>{formatDateTime(order.orderedAt)}</strong>
-        </div>
-      </div>
-      <Link href="/my/orders" className="link-button" style={{ marginTop: 20 }}>
-        View my orders
-      </Link>
-    </section>
+      </section>
+    </div>
   );
 }
