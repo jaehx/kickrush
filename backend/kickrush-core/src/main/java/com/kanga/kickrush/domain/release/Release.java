@@ -9,9 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,5 +50,15 @@ public class Release {
         this.releaseDateTime = releaseDateTime;
         this.endDateTime = endDateTime;
         this.totalStock = totalStock;
+    }
+
+    public ReleaseStatus getStatus(LocalDateTime now) {
+        if (now.isBefore(releaseDateTime)) {
+            return ReleaseStatus.UPCOMING;
+        }
+        if (now.isAfter(endDateTime)) {
+            return ReleaseStatus.ENDED;
+        }
+        return ReleaseStatus.ONGOING;
     }
 }

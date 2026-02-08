@@ -3,8 +3,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     testImplementation 'com.h2database:h2'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += 'src/main/fixture/java'
+        }
+    }
 }
 
 // api는 실제 실행 파일이 되어야 하므로 bootJar를 활성화합니다.

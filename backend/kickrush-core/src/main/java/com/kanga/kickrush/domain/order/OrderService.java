@@ -27,6 +27,17 @@ public class OrderService {
         this.releaseSizeService = releaseSizeService;
     }
 
+    @Transactional(readOnly = true)
+    public java.util.List<Order> findByMemberId(Long memberId) {
+        return orderRepository.findByMemberIdOrderByOrderedAtDesc(memberId);
+    }
+
+    @Transactional(readOnly = true)
+    public Order getByMemberAndId(Long memberId, Long orderId) {
+        return orderRepository.findByIdAndMemberId(orderId, memberId)
+            .orElseThrow(() -> new IllegalArgumentException("주문 정보를 찾을 수 없습니다"));
+    }
+
     @Transactional
     public Order createOrder(Long memberId, Long releaseSizeId) {
         if (orderRepository.existsByMemberIdAndReleaseSizeId(memberId, releaseSizeId)) {
@@ -61,5 +72,12 @@ public class OrderService {
         } catch (DataIntegrityViolationException ex) {
             throw new IllegalStateException("DUPLICATE_ORDER", ex);
         }
+    }
+
+    @Transactional
+    public Order cancelOrder(Long memberId, Long orderId) {
+        Order order = getByMemberAndId(memberId, orderId);
+        order.cancel(LocalDateTime.now());
+        return order;
     }
 }

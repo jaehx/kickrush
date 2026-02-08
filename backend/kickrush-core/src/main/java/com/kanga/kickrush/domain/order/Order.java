@@ -45,4 +45,14 @@ public class Order {
 
     @Column(nullable = false)
     private LocalDateTime orderedAt;
+
+    private LocalDateTime cancelledAt;
+
+    public void cancel(LocalDateTime cancelledAt) {
+        if (this.status == OrderStatus.CANCELLED) {
+            throw new IllegalStateException("ORDER_NOT_CANCELLABLE");
+        }
+        this.status = OrderStatus.CANCELLED;
+        this.cancelledAt = cancelledAt;
+    }
 }

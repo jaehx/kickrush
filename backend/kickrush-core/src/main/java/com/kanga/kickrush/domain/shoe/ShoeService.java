@@ -22,4 +22,27 @@ public class ShoeService {
     public List<Shoe> findAll() {
         return shoeRepository.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public List<Shoe> findByBrand(String brand) {
+        return shoeRepository.findByBrandIgnoreCase(brand);
+    }
+
+    @Transactional
+    public Shoe create(String name,
+            String brand,
+            String modelNumber,
+            int price,
+            String description,
+            String imageUrl) {
+        Shoe shoe = Shoe.builder()
+            .name(name)
+            .brand(brand)
+            .modelNumber(modelNumber)
+            .price(price)
+            .description(description)
+            .imageUrl(imageUrl)
+            .build();
+        return shoeRepository.save(shoe);
+    }
 }
