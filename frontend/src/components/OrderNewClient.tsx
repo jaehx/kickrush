@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { SizeGrid } from "@/components/SizeGrid";
 import { useToast } from "@/components/ui/Toast";
 import { apiClient } from "@/lib/api";
+import { getErrorMessage } from "@/lib/error";
 import { formatCurrency } from "@/lib/format";
 import type { CreateOrderResponse, Release, ReleaseDetail, ReleaseSize } from "@/types";
 
@@ -43,8 +44,7 @@ export function OrderNewClient({ releases, releaseDetail, initialSizeId }: Order
       toast.push("주문이 완료되었습니다.", "success");
       router.push(`/orders/${response.id}/complete`);
     } catch (error) {
-      const message = error instanceof Error ? error.message : "주문 생성에 실패했습니다.";
-      toast.push(message, "error");
+      toast.push(getErrorMessage(error, "주문 생성에 실패했습니다."), "error");
     } finally {
       setIsSubmitting(false);
     }
