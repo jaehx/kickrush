@@ -49,10 +49,10 @@
 ## Phase 3: 주문 처리
 
 ### 3.1 주문(Order) 도메인
-- [ ] `Order` 엔티티 생성 테스트
-- [ ] `OrderRepository` 기본 CRUD 테스트
-- [ ] `OrderService` 주문 생성 테스트
-- [ ] `OrderService` 중복 주문 방지 테스트 (동일 회원 + 동일 발매 + 동일 사이즈)
+- [x] `Order` 엔티티 생성 테스트
+- [x] `OrderRepository` 기본 CRUD 테스트
+- [x] `OrderService` 주문 생성 테스트
+- [x] `OrderService` 중복 주문 방지 테스트 (동일 회원 + 동일 발매 + 동일 사이즈)
 
 ### 3.2 주문 상태 관리
 - [ ] 주문 상태 변경 테스트
