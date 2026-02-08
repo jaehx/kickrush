@@ -21,7 +21,11 @@ export function SizeGrid({ sizes, onSelect }: SizeGridProps) {
           <button
             key={size.id}
             type="button"
-            className={clsx("size-item", isActive && "size-item-active", isDisabled && "size-item-disabled")}
+            className={clsx(
+              "size-item",
+              isActive && "size-item-active",
+              isDisabled && "size-item-disabled"
+            )}
             onClick={() => {
               if (isDisabled) return;
               setActiveId(size.id);

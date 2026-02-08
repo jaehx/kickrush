@@ -1,31 +1,42 @@
 package com.kanga.kickrush.domain.order;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Entity
+@Table(
+    name = "orders",
+    uniqueConstraints = @UniqueConstraint(
+        name = "uk_order_member_release_size",
+        columnNames = {"member_id", "release_size_id"}
+    )
+)
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "orders",
-        uniqueConstraints = @UniqueConstraint(
-                name = "uk_order_member_release_size",
-                columnNames = {"memberId", "releaseSizeId"}
-        ))
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "member_id", nullable = false)
     private Long memberId;
 
-    @Column(nullable = false)
+    @Column(name = "release_size_id", nullable = false)
     private Long releaseSizeId;
 
     @Enumerated(EnumType.STRING)
@@ -34,12 +45,4 @@ public class Order {
 
     @Column(nullable = false)
     private LocalDateTime orderedAt;
-
-    @Builder
-    public Order(Long memberId, Long releaseSizeId, OrderStatus status, LocalDateTime orderedAt) {
-        this.memberId = memberId;
-        this.releaseSizeId = releaseSizeId;
-        this.status = status;
-        this.orderedAt = orderedAt;
-    }
 }

@@ -24,11 +24,14 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
 
-  const push = useCallback((message: string, tone: ToastTone = "info") => {
-    const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    setToasts((prev) => [...prev, { id, message, tone }]);
-    setTimeout(() => remove(id), 4000);
-  }, [remove]);
+  const push = useCallback(
+    (message: string, tone: ToastTone = "info") => {
+      const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      setToasts((prev) => [...prev, { id, message, tone }]);
+      setTimeout(() => remove(id), 4000);
+    },
+    [remove]
+  );
 
   const value = useMemo(() => ({ push }), [push]);
 

@@ -93,7 +93,9 @@ export function OrderNewClient({ releases, releaseDetail, initialSizeId }: Order
               <div className="info-banner">
                 <div>
                   <span className="meta-label">Price</span>
-                  <strong>{formatCurrency(selectedSize?.price ?? selectedRelease.sizes[0]?.price ?? 0)}</strong>
+                  <strong>
+                    {formatCurrency(selectedSize?.price ?? selectedRelease.sizes[0]?.price ?? 0)}
+                  </strong>
                 </div>
                 <Button size="lg" onClick={handleOrder} disabled={!canOrder || isSubmitting}>
                   {isSubmitting ? "Placing..." : canOrder ? "Confirm order" : "Release closed"}

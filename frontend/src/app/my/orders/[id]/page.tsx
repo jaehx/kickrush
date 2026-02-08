@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { OrderDetailClient } from "@/components/OrderDetailClient";
 import { Spinner } from "@/components/ui/Spinner";
 import { apiClient } from "@/lib/api";
@@ -14,12 +15,16 @@ interface OrderDetailPageProps {
 export default function OrderDetailPage({ params }: OrderDetailPageProps) {
   const [order, setOrder] = useState<OrderDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {
       try {
         const data = await apiClient.fetch<OrderDetail>(`/my/orders/${params.id}`);
         setOrder(data);
+        setErrorMessage(null);
+      } catch {
+        setErrorMessage("주문 정보를 불러오는 데 실패했습니다.");
       } finally {
         setIsLoading(false);
       }
@@ -27,6 +32,10 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
 
     void load();
   }, [params.id]);
+
+  const handleCancelled = (cancelledAt: string) => {
+    setOrder((prev) => (prev ? { ...prev, status: "CANCELLED", cancelledAt } : prev));
+  };
 
   if (isLoading) {
     return (
@@ -39,58 +48,67 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
   if (!order) {
     return (
       <section className="panel">
-        <p className="meta">주문 정보를 불러오지 못했습니다.</p>
+        <div className="panel-header">
+          <h1>Order not found</h1>
+        </div>
+        <p className="meta">{errorMessage ?? "주문 정보를 찾을 수 없습니다."}</p>
+        <Link href="/my/orders" className="link-muted">
+          주문 목록으로 돌아가기
+        </Link>
       </section>
     );
   }
 
   return (
-    <section className="panel" style={{ maxWidth: 720, margin: "0 auto" }}>
-      <div className="panel-header">
-        <div>
-          <h1>Order #{order.id}</h1>
-          <p className="meta">{order.status}</p>
+    <div className="form-grid">
+      <section className="panel">
+        <div className="panel-header">
+          <div>
+            <p className="meta">{order.shoe.brand}</p>
+            <h1>{order.shoe.name}</h1>
+            <p className="meta">{order.shoe.modelNumber}</p>
+          </div>
+          <div className="info-banner">
+            <span className="meta-label">Status</span>
+            <strong>{order.status}</strong>
+          </div>
         </div>
-        <OrderDetailClient
-          orderId={order.id}
-          status={order.status}
-          onCancelled={(cancelledAt) =>
-            setOrder((prev) =>
-              prev
-                ? {
-                    ...prev,
-                    status: "CANCELLED",
-                    cancelledAt
-                  }
-                : prev
-            )
-          }
-        />
-      </div>
-      <div className="form-grid">
-        <div>
-          <span className="meta-label">Shoe</span>
-          <p>{order.shoe.name}</p>
-        </div>
-        <div>
-          <span className="meta-label">Size</span>
-          <p>{order.size}</p>
-        </div>
-        <div>
-          <span className="meta-label">Price</span>
-          <p>{formatCurrency(order.price)}</p>
-        </div>
-        <div>
-          <span className="meta-label">Ordered at</span>
-          <p>{formatDateTime(order.orderedAt)}</p>
+        <div className="info-banner">
+          <div>
+            <span className="meta-label">Size</span>
+            <strong>{order.size}</strong>
+          </div>
+          <div>
+            <span className="meta-label">Price</span>
+            <strong>{formatCurrency(order.price)}</strong>
+          </div>
+          <div>
+            <span className="meta-label">Ordered at</span>
+            <strong>{formatDateTime(order.orderedAt)}</strong>
+          </div>
         </div>
         {order.cancelledAt ? (
-          <div>
-            <span className="meta-label">Cancelled at</span>
-            <p>{formatDateTime(order.cancelledAt)}</p>
-          </div>
+          <p className="meta" style={{ marginTop: 12 }}>
+            Cancelled at: {formatDateTime(order.cancelledAt)}
+          </p>
         ) : null}
-      </div>
-    </section>
+      </section>
+
+      <section className="panel">
+        <div className="panel-header">
+          <h2>Manage order</h2>
+        </div>
+        <div className="form-grid">
+          <OrderDetailClient
+            orderId={order.id}
+            status={order.status}
+            onCancelled={handleCancelled}
+          />
+          <Link href="/my/orders" className="link-muted">
+            주문 목록으로 돌아가기
+          </Link>
+        </div>
+      </section>
+    </div>
   );
 }
