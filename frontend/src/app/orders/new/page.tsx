@@ -3,13 +3,16 @@ import { fetchApi } from "@/lib/api";
 import type { Page, Release, ReleaseDetail } from "@/types";
 
 interface OrderNewPageProps {
-  searchParams?: { releaseId?: string; sizeId?: string };
+  searchParams?: Promise<{ releaseId?: string; sizeId?: string }>;
 }
 
 export default async function OrderNewPage({ searchParams }: OrderNewPageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const releases = await fetchApi<Page<Release>>("/releases");
-  const releaseId = searchParams?.releaseId ? Number(searchParams.releaseId) : null;
-  const sizeId = searchParams?.sizeId ? Number(searchParams.sizeId) : null;
+  const releaseId = resolvedSearchParams?.releaseId
+    ? Number(resolvedSearchParams.releaseId)
+    : null;
+  const sizeId = resolvedSearchParams?.sizeId ? Number(resolvedSearchParams.sizeId) : null;
 
   let releaseDetail: ReleaseDetail | null = null;
   if (releaseId) {

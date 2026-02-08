@@ -1,25 +1,30 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Spinner } from "@/components/ui/Spinner";
 import { apiClient } from "@/lib/api";
 import { formatCurrency, formatDateTime } from "@/lib/format";
 import type { OrderDetail } from "@/types";
 
-interface OrderCompletePageProps {
-  params: { id: string };
-}
-
-export default function OrderCompletePage({ params }: OrderCompletePageProps) {
+export default function OrderCompletePage() {
+  const params = useParams<{ id: string }>();
+  const orderId = Array.isArray(params?.id) ? params.id[0] : params?.id;
   const [order, setOrder] = useState<OrderDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!orderId) {
+      setErrorMessage("주문 정보를 찾을 수 없습니다.");
+      setIsLoading(false);
+      return;
+    }
+
     const load = async () => {
       try {
-        const data = await apiClient.fetch<OrderDetail>(`/my/orders/${params.id}`);
+        const data = await apiClient.fetch<OrderDetail>(`/my/orders/${orderId}`);
         setOrder(data);
         setErrorMessage(null);
       } catch {
@@ -30,7 +35,7 @@ export default function OrderCompletePage({ params }: OrderCompletePageProps) {
     };
 
     void load();
-  }, [params.id]);
+  }, [orderId]);
 
   if (isLoading) {
     return (
