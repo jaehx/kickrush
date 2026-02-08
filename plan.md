@@ -21,10 +21,10 @@
 - [x] `ReleaseService` 발매 상태 조회 테스트
 
 ### 1.3 사이즈/사이즈별 재고(ReleaseSize) 도메인
-- [ ] `ReleaseSize` 엔티티 생성 테스트
-- [ ] `ReleaseSizeRepository` 기본 CRUD 테스트
-- [ ] `Release` ↔ `ReleaseSize` 연관관계 테스트
-- [ ] 사이즈 범위/단위(220~300, 5mm) 유효성 테스트
+- [x] `ReleaseSize` 엔티티 생성 테스트
+- [x] `ReleaseSizeRepository` 기본 CRUD 테스트
+- [x] `Release` ↔ `ReleaseSize` 연관관계 테스트
+- [x] 사이즈 범위/단위(220~300, 5mm) 유효성 테스트
 
 ---
 
