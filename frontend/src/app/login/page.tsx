@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/components/ui/Toast";
+import { getErrorMessage } from "@/lib/error";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -24,8 +25,7 @@ export default function LoginPage() {
       toast.push("로그인 완료. 주문 대시보드로 이동합니다.", "success");
       router.push("/my/orders");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "로그인에 실패했습니다.";
-      toast.push(message, "error");
+      toast.push(getErrorMessage(error, "로그인에 실패했습니다."), "error");
     } finally {
       setIsLoading(false);
     }

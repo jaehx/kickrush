@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { apiClient } from "@/lib/api";
+import { getErrorMessage } from "@/lib/error";
 import type { CancelOrderResponse } from "@/types";
 
 interface OrderDetailClientProps {
@@ -28,8 +29,7 @@ export function OrderDetailClient({ orderId, status, onCancelled }: OrderDetailC
       onCancelled(response.cancelledAt);
       router.refresh();
     } catch (error) {
-      const message = error instanceof Error ? error.message : "취소에 실패했습니다.";
-      toast.push(message, "error");
+      toast.push(getErrorMessage(error, "취소에 실패했습니다."), "error");
     } finally {
       setIsCancelling(false);
     }

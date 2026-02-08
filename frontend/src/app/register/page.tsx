@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/components/ui/Toast";
+import { getErrorMessage } from "@/lib/error";
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -25,8 +26,7 @@ export default function RegisterPage() {
       toast.push("계정 생성 완료. 대시보드로 이동합니다.", "success");
       router.push("/my/orders");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "회원가입에 실패했습니다.";
-      toast.push(message, "error");
+      toast.push(getErrorMessage(error, "회원가입에 실패했습니다."), "error");
     } finally {
       setIsLoading(false);
     }
