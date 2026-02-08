@@ -6,11 +6,12 @@ import { formatCurrency, formatDateTime } from "@/lib/format";
 import type { ReleaseDetail } from "@/types";
 
 interface ReleasePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function ReleasePage({ params }: ReleasePageProps) {
-  const release = await fetchApi<ReleaseDetail>(`/releases/${params.id}`);
+  const { id } = await params;
+  const release = await fetchApi<ReleaseDetail>(`/releases/${id}`);
 
   return (
     <div className="form-grid">

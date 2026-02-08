@@ -4,11 +4,12 @@ import { formatCurrency, formatDateTime } from "@/lib/format";
 import type { Page, Release, ShoeDetail } from "@/types";
 
 interface ShoePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function ShoePage({ params }: ShoePageProps) {
-  const shoe = await fetchApi<ShoeDetail>(`/shoes/${params.id}`);
+  const { id } = await params;
+  const shoe = await fetchApi<ShoeDetail>(`/shoes/${id}`);
   const releases = await fetchApi<Page<Release>>("/releases");
   const related = releases.content.filter((release) => release.shoe.id === shoe.id);
 

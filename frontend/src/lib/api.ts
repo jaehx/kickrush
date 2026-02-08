@@ -52,13 +52,11 @@ export class ApiClient {
     }
 
     const accessToken = readAccessToken();
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      ...options?.headers
-    };
+    const headers = new Headers(options?.headers);
+    headers.set("Content-Type", "application/json");
 
     if (accessToken) {
-      headers.Authorization = `Bearer ${accessToken}`;
+      headers.set("Authorization", `Bearer ${accessToken}`);
     }
 
     let response = await fetch(`${API_URL}${endpoint}`, {
@@ -69,7 +67,12 @@ export class ApiClient {
     if (response.status === 401) {
       const refreshed = await this.refreshToken();
       if (refreshed) {
-        headers.Authorization = `Bearer ${readAccessToken()}`;
+        const updatedToken = readAccessToken();
+        if (updatedToken) {
+          headers.set("Authorization", `Bearer ${updatedToken}`);
+        } else {
+          headers.delete("Authorization");
+        }
         response = await fetch(`${API_URL}${endpoint}`, {
           ...options,
           headers
