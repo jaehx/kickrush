@@ -1,10 +1,13 @@
 package com.kanga.kickrush.domain.releaseSize;
 
 import com.kanga.kickrush.TestConfiguration;
+import com.kanga.kickrush.domain.release.Release;
+import com.kanga.kickrush.domain.release.ReleaseRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import java.time.LocalDateTime;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,13 +23,17 @@ class ReleaseSizeConcurrencyTest {
     private ReleaseSizeRepository releaseSizeRepository;
 
     @Autowired
+    private ReleaseRepository releaseRepository;
+
+    @Autowired
     private ReleaseSizeService releaseSizeService;
 
     @Test
     @DisplayName("동시 재고 차감 시 초과 판매를 방지한다 (Pessimistic Lock)")
     void shouldPreventOversellWithPessimisticLock() throws Exception {
+        Release release = createRelease();
         ReleaseSize saved = releaseSizeRepository.save(ReleaseSize.builder()
-                .releaseId(1L)
+                .releaseId(release.getId())
                 .size(270)
                 .stock(10)
                 .price(300000)
@@ -61,4 +68,13 @@ class ReleaseSizeConcurrencyTest {
         assertThat(updated.getStock()).isEqualTo(0);
     }
 
+    private Release createRelease() {
+        LocalDateTime now = LocalDateTime.now();
+        return releaseRepository.save(Release.builder()
+                .shoeId(1L)
+                .releaseDateTime(now.minusMinutes(1))
+                .endDateTime(now.plusMinutes(10))
+                .totalStock(100)
+                .build());
+    }
 }

@@ -1,11 +1,16 @@
 package com.kanga.kickrush.domain.release;
 
+import com.kanga.kickrush.domain.releaseSize.ReleaseSize;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -32,6 +37,9 @@ public class Release {
 
     @Column(nullable = false)
     private int totalStock;
+
+    @OneToMany(mappedBy = "release", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReleaseSize> sizes = new ArrayList<>();
 
     @Builder
     public Release(Long shoeId, LocalDateTime releaseDateTime, LocalDateTime endDateTime, int totalStock) {
